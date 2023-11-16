@@ -1,0 +1,133 @@
+<div class="form-container">
+    <form [formGroup]="aspiranteForm" (ngSubmit)="agregarPaciente()">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Nombre</label>
+                <input formControlName="nom" type="text" class="form-control" placeholder="Nombre">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Apellido Paterno</label>
+                <input formControlName="apeP" type="text" class="form-control" placeholder="Apellido Paterno">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Apellido Materno</label>
+                <input formControlName="apeM" type="text" class="form-control" placeholder="Apellido Materno">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Calle</label>
+            <input formControlName="calle" type="text" class="form-control">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Numero</label>
+                <input formControlName="no" type="text" class="form-control" placeholder="118-A">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Colonia</label>
+                <input formControlName="col" type="text" class="form-control" placeholder="">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Ciudad</label>
+                <select formControlName="ciudad" id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Código Postal</label>
+                <input formControlName="cp" type="number" class="form-control" placeholder="37800">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Número de teléfono de casa</label>
+                <input formControlName="numTelCa" type="text" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Número de teléfono</label>
+                <input formControlName="numTelAsp" type="text" class="form-control">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Otro número de teléfono</label>
+                <input formControlName="numTelMaPa" type="text" class="form-control" id="inputZip">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Email</label>
+                <input formControlName="mail" type="email" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Bachillerato de procedencia</label>
+                <select formControlName="nomBach" id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Promedio de bachillerato</label>
+                <input formControlName="promBach" type="number" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Especialidad cursada en bachillerato</label>
+                <select formControlName="espCur" id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Nombre de la madre</label>
+                <input formControlName="nomMa" type="text" class="form-control" placeholder="Nombre">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Apellido paterno de la madre</label>
+                <input formControlName="apePMa" type="text" class="form-control" placeholder="Apellido Paterno">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Apellido materno de la madre</label>
+                <input formControlName="apeMMa" type="text" class="form-control" placeholder="Apellido Materno">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Nombre del padre</label>
+                <input formControlName="nomPa" type="text" class="form-control" placeholder="Nombre">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Apellido paterno del padre</label>
+                <input formControlName="apePPa" type="text" class="form-control" placeholder="Apellido Paterno">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Apellido Materno del padre</label>
+                <input formControlName="apeMPa" type="text" class="form-control" placeholder="Apellido Materno">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Carrera que desea cursar</label>
+            <select formControlName="carrCur" id="inputState" class="form-control">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Foto del aspirante</label>
+                <input formControlName="foto" class="form-control" type="file" id="formFile">
+              </div>
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Certificado de bachillerato</label>
+                <input formControlName="cert" class="form-control" type="file" id="formFile">
+              </div>
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Comprobante de domicilio</label>
+                <input formControlName="compDom" class="form-control" type="file" id="formFile">
+              </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+</div>
