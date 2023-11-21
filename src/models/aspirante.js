@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const aspiranteSchema = mongoose.Schema({
     mat: {
         type: String,
-        required: false
+        required: true
     },
     nom: {
         type: String,
@@ -98,19 +98,16 @@ const aspiranteSchema = mongoose.Schema({
         required: true
     },
     foto: {
-        filename: String,
-        originalname: String,
-        required: false
+        data: Buffer,
+        contentType: String
     },
     cert: {
-        filename: String,
-        originalname: String,
-        required: false
+        data: Buffer,
+        contentType: String
     },
     compDom: {
-        filename: String,
-        originalname: String,
-        required: false
+        data: Buffer,
+        contentType: String
     }
 });
 

@@ -4,11 +4,7 @@ require("dotenv").config();
 const aspiranteRouters = require('./src/routes/aspiranteRoute');
 const app = express();
 const port = process.env.PORT || 9000;
-const cors = require("cors");
 
-
-// middleware
-app.use(cors());
 app.use(express.json());
 app.use('/api/', aspiranteRouters);
 
