@@ -19,6 +19,8 @@ export class FormComponent implements OnInit {
 
   aspiranteForm: FormGroup;
   id: string | null;
+  private fileTmp:any;
+  fileTypes: { [key: string]: string } = {};
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -26,6 +28,7 @@ export class FormComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private _aspiranteService: AspiranteServices,
     private aRoute: ActivatedRoute) {
+    this.fileTmp = {};
     this.aspiranteForm = this.fb.group({
       nom: ['', Validators.required],
       apeP: ['', Validators.required],
@@ -55,6 +58,10 @@ export class FormComponent implements OnInit {
       compDom: ['', Validators.required],
     })
     this.id = this.aRoute.snapshot.paramMap.get('id');
+
+    this.fileTypes['foto'] = 'image/jpeg';
+    this.fileTypes['cert'] = 'application/pdf';
+    this.fileTypes['compDom'] = 'application/pdf';
   }
   ngOnInit(): void {
     this.obtenerAspirantes();
@@ -64,64 +71,71 @@ export class FormComponent implements OnInit {
     this.obtenerEspecialidad();
   }
 
+  getFile($event: any, fieldName: string): void {
+  const [file] = $event.target.files;
+
+  // Asegúrate de que fileTypes[fieldName] exista antes de intentar leerlo
+  if (!this.fileTypes[fieldName]) {
+    console.error(`Tipo de archivo para ${fieldName} no está configurado.`);
+    return;
+  }
+
+  // Crea un nuevo Blob con el mismo contenido y establece el nuevo tipo
+  const modifiedBlob = new Blob([file], { type: this.fileTypes[fieldName] });
+
+  // Asegúrate de que fileTmp[fieldName] exista antes de intentar asignarle propiedades
+  if (!this.fileTmp[fieldName]) {
+    this.fileTmp[fieldName] = {};
+  }
+
+  this.fileTmp[fieldName].fileRaw = modifiedBlob;
+  this.fileTmp[fieldName].fileType = this.fileTypes[fieldName];
+}
+
+  sendFiles():void{
+
+    const body = new FormData();
+
+    body.append('nom',this.aspiranteForm.get('nom')?.value);
+    body.append('apeP',this.aspiranteForm.get('apeP')?.value);
+    body.append('apeM',this.aspiranteForm.get('apeM')?.value);
+    body.append('calle',this.aspiranteForm.get('calle')?.value);
+    body.append('no',this.aspiranteForm.get('no')?.value);
+    body.append('col',this.aspiranteForm.get('col')?.value);
+    body.append('ciudad',this.aspiranteForm.get('ciudad')?.value);
+    body.append('numTelCa',this.aspiranteForm.get('numTelCa')?.value);
+    body.append('numTelAsp',this.aspiranteForm.get('numTelAsp')?.value);
+    body.append('numTelMaPa',this.aspiranteForm.get('numTelMaPa')?.value);
+    body.append('mail',this.aspiranteForm.get('mail')?.value);
+    body.append('nomBach',this.aspiranteForm.get('nomBach')?.value);
+    body.append('promBach',this.aspiranteForm.get('promBach')?.value);
+    body.append('espCur',this.aspiranteForm.get('espCur')?.value);
+    body.append('nomMa',this.aspiranteForm.get('nomMa')?.value);
+    body.append('apePMa',this.aspiranteForm.get('apePMa')?.value);
+    body.append('apeMMa',this.aspiranteForm.get('apeMMa')?.value);
+    body.append('nomPa',this.aspiranteForm.get('nomPa')?.value);
+    body.append('apePPa',this.aspiranteForm.get('apePPa')?.value);
+    body.append('apeMPa',this.aspiranteForm.get('apeMPa')?.value);
+    body.append('carrCur',this.aspiranteForm.get('carrCur')?.value);
+    body.append('foto', this.fileTmp['foto'].fileRaw, this.fileTmp['foto'].fileType);
+    body.append('cert', this.fileTmp['cert'].fileRaw, this.fileTmp['cert'].fileType);
+    body.append('compDom', this.fileTmp['compDom'].fileRaw, this.fileTmp['compDom'].fileType);
+
+    this._aspiranteService.guardarAspirante(body).subscribe(res => console.log(res));
+
+  }
+
   getBufferImageSrc(buffer: ArrayBuffer): SafeUrl {
-    const blob = new Blob([buffer], { type: 'image/*' });
+    const blob = new Blob([buffer]);
     const imageUrl = URL.createObjectURL(blob);
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  }
+}
 
-  agregarAspirante() {
-    console.log(this.aspiranteForm)
-
-    const ASPIRANTE: Aspirante = {
-      mat: this.aspiranteForm.get('')?.value,
-      nom: this.aspiranteForm.get('nom')?.value,
-      apeP: this.aspiranteForm.get('apeP')?.value,
-      apeM: this.aspiranteForm.get('apeM')?.value,
-      calle: this.aspiranteForm.get('calle')?.value,
-      no: this.aspiranteForm.get('no')?.value,
-      col: this.aspiranteForm.get('col')?.value,
-      ciudad: this.aspiranteForm.get('ciudad')?.value,
-      cp: this.aspiranteForm.get('cp')?.value,
-      numTelCa: this.aspiranteForm.get('numTelCa')?.value,
-      numTelAsp: this.aspiranteForm.get('numTelAsp')?.value,
-      numTelMaPa: this.aspiranteForm.get('numTelMaPa')?.value,
-      mail: this.aspiranteForm.get('mail')?.value,
-      nomBach: this.aspiranteForm.get('nomBach')?.value,
-      promBach: this.aspiranteForm.get('promBach')?.value,
-      espCur: this.aspiranteForm.get('espCur')?.value,
-      nomMa: this.aspiranteForm.get('nomMa')?.value,
-      apePMa: this.aspiranteForm.get('apePMa')?.value,
-      apeMMa: this.aspiranteForm.get('apeMMa')?.value,
-      nomPa: this.aspiranteForm.get('nomPa')?.value,
-      apePPa: this.aspiranteForm.get('apePPa')?.value,
-      apeMPa: this.aspiranteForm.get('apeMPa')?.value,
-      fechReg: this.aspiranteForm.get('fechReg')?.value,
-      carrCur: this.aspiranteForm.get('carrCur')?.value,
-      foto: this.aspiranteForm.get('foto')?.value,
-      cert: this.aspiranteForm.get('cert')?.value,
-      compDom: this.aspiranteForm.get('compDom')?.value,
-    }
-    
-
-    if (this.id == null) {
-      //agregar paciente
-      this._aspiranteService.guardarAspirante(ASPIRANTE).subscribe(data => {
-        this.toastr.success('El paciente fué agregado con éxito!', 'Paciente agregado!');
-        this.router.navigate(['/']);
-      }, error => {
-        console.log(error);
-        this.aspiranteForm.reset();
-      });
-    }
-
-    console.log(ASPIRANTE);
-  }
-
-  getSanitizedImageUrl(base64String: string): SafeUrl {
-    const imageUrl = `data:image/jpeg;base64,${base64String}`;
+getSanitizedImageUrl(base64String: string, imageType: string): SafeUrl {
+    const imageUrl = `data:image/${imageType};base64,${base64String}`;
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  }
+}
+  
 
   listAspirante: Aspirante[] = [];
 

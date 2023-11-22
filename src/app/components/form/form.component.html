@@ -1,5 +1,5 @@
 <div class="form-container">
-    <form [formGroup]="aspiranteForm" (ngSubmit)="agregarAspirante()">
+    <form [formGroup]="aspiranteForm" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Nombre</label>
@@ -116,19 +116,19 @@
         </div>
         <div class="form-row">
             <div class="mb-3">
-                <label for="formFile" class="form-label">Foto del aspirante</label>
-                <input formControlName="foto" class="form-control" type="file" id="formFile">
+                <label for="foto" class="form-label">Foto del aspirante</label>
+                <input class="form-control" type="file" id="foto" (change)="getFile($event, 'foto')">
               </div>
               <div class="mb-3">
-                <label for="formFile" class="form-label">Certificado de bachillerato</label>
-                <input formControlName="cert" class="form-control" type="file" id="formFile">
+                <label for="cert" class="form-label">Certificado de bachillerato</label>
+                <input class="form-control" type="file" id="cert" (change)="getFile($event, 'cert')">
               </div>
               <div class="mb-3">
-                <label for="formFile" class="form-label">Comprobante de domicilio</label>
-                <input formControlName="compDom" class="form-control" type="file" id="formFile">
+                <label for="compDom" class="form-label">Comprobante de domicilio</label>
+                <input class="form-control" type="file" id="compDom" (change)="getFile($event, 'compDom')">
               </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
+          </div>
+        <button (click)="sendFiles()">Registrar estudiante</button>
     </form>
 </div>
 
@@ -138,11 +138,11 @@
             <div class="card-body text-center">
                 <div class="topnav">
                 </div>
-                <span class="titulo">LISTADO DE ASPIRANTES</span>
-                <button routerLink="/crear-usuario" class="btn btn-success float-end">NUEVO</button>
+                <span class="titulo">LISTADO DE ESTUDIANTES</span>
                 <table *ngIf="listAspirante.length > 0" class="table table-striped mt-3">
                     <thead>
                         <tr>
+                            <th scope="col">Matrícula</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Foto</th>
                             <th scope="col">Certificado</th>
@@ -152,15 +152,20 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let aspirante of listAspirante">
+                            <td> {{aspirante.mat}}</td>
                             <td> {{aspirante.nom}} {{aspirante.apeP}} {{aspirante.apeM}}</td>
                             <td> 
-                                <img *ngIf="aspirante.foto" [src]="getSanitizedImageUrl(aspirante.foto)" alt="Foto">
+                                <img style="width: 100px; height: 100;" *ngIf="aspirante.foto" [src]="getSanitizedImageUrl(aspirante.foto, 'jpeg')" alt="Foto">
                             </td>
                             <td> <a *ngIf="aspirante.cert" [href]="'data:application/pdf;base64,' + aspirante.cert" target="_blank" download="certificado.pdf">
                                 Descargar PDF
                             </a>
                             </td>
-                            <td> {{aspirante.compDom}} </td>
+                            <td>  
+                                <a *ngIf="aspirante.compDom" [href]="'data:application/pdf;base64,' + aspirante.compDom" target="_blank" download="comprobanteDomicilio.pdf">
+                                    Descargar PDF
+                                </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

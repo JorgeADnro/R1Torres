@@ -32,8 +32,8 @@ export class AspiranteServices {
     return this.http.get<any[]>('http://localhost:9000/api/asps/esp',requestOptions);
   }
 
-  guardarAspirante(aspirante: Aspirante): Observable<any>{
-    return this.http.post('http://localhost:9000/api/asps',aspirante);
+  guardarAspirante(aspirante: FormData): Observable<any> {
+    return this.http.post('http://localhost:9000/api/asps', aspirante);
   }
 
   obtenerAspirante(id: string): Observable<any>{
