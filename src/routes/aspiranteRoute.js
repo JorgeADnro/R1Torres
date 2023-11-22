@@ -9,7 +9,7 @@ const upload = multer({ storage: storage })
 
 
 // Crear aspirante
-router.post('/asps', upload.fields([{ name: 'foto' }, { name: 'cert' }, { name: 'compDom' }]), aspiranteController.crearAspirante);
+router.post('/asps', upload.fields([{ name: 'foto' }, { name: 'cert' }, { name: 'compDom' }]), aspiranteController.guardarAspirante);
 
 // Obtener todos los aspirantes
 router.get('/asps',aspiranteController.obtenerAspirantes);

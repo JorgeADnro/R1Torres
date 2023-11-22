@@ -1,10 +1,10 @@
 const Aspirante = require("../models/aspirante");
 const multer = require('multer')
-const { enviarCorreo } = require('../service/notifi.service.js');
+const { notificarEstudiante } = require('../service/notifi.service.js');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage })
 
-exports.crearAspirante = async (req, res) => {
+exports.guardarAspirante = async (req, res) => {
     try {
         if (!req.files || Object.keys(req.files).length === 0) {
             return res.status(400).send('No se proporcionaron los archivos');
@@ -57,7 +57,7 @@ exports.crearAspirante = async (req, res) => {
 
         await aspirante.save();
 
-        enviarCorreo(mail, mat, nom, apeP, apeM);
+        notificarEstudiante(mail, mat, nom, apeP, apeM);
 
         res.send(aspirante);
     } catch (error) {

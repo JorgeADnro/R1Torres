@@ -4,12 +4,12 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'phpmailertest633@gmail.com',
-        pass: 'difr gafm uwik vlle'
+        pass: 'passwd'
     }
 });
 
 // Función que envía el correo
-exports.enviarCorreo = (mail, mat, nom, apeP, apeM) => {
+exports.notificarEstudiante = (mail, mat, nom, apeP, apeM) => {
     const mailOptions = {
         from: 'phpmailertest633@gmail.com',
         to: mail,
