@@ -9,6 +9,7 @@ import { Carrera } from 'src/app/models/carrera';
 import { Especialidad } from 'src/app/models/especialidad';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AspiranteServices } from 'src/app/services/aspirante.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form',
@@ -104,6 +105,7 @@ export class FormComponent implements OnInit {
     body.append('col',this.aspiranteForm.get('col')?.value);
     body.append('ciudad',this.aspiranteForm.get('ciudad')?.value);
     body.append('numTelCa',this.aspiranteForm.get('numTelCa')?.value);
+    body.append('cp',this.aspiranteForm.get('cp')?.value);
     body.append('numTelAsp',this.aspiranteForm.get('numTelAsp')?.value);
     body.append('numTelMaPa',this.aspiranteForm.get('numTelMaPa')?.value);
     body.append('mail',this.aspiranteForm.get('mail')?.value);
@@ -121,7 +123,12 @@ export class FormComponent implements OnInit {
     body.append('cert', this.fileTmp['cert'].fileRaw, this.fileTmp['cert'].fileType);
     body.append('compDom', this.fileTmp['compDom'].fileRaw, this.fileTmp['compDom'].fileType);
 
-    this._aspiranteService.guardarAspirante(body).subscribe(res => console.log(res));
+    this._aspiranteService.guardarAspirante(body).subscribe(res => {
+      if(res){
+        Swal.fire('Se ha registrado el alumno!', res.message, 'success');
+      }
+    });
+
 
   }
 

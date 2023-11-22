@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormComponent } from './components/form/form.component';
 import { ToastrModule } from 'ngx-toastr';
-
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    SweetAlert2Module
   ],
   providers: [],
   bootstrap: [AppComponent]
