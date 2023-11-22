@@ -1,4 +1,8 @@
 const Aspirante = require("../models/aspirante");
+const Ciudades = require("../models/ciudad.js");
+const Bachiller = require("../models/bachiller.js");
+const Especialidad = require("../models/especialidad.js");
+const Carrera = require("../models/carrera.js");
 const multer = require('multer')
 const { notificarEstudiante } = require('../service/notifi.service.js');
 const storage = multer.memoryStorage();
@@ -94,12 +98,64 @@ function generarMatricula(apeP, apeM, nom) {
 exports.obtenerAspirantes = async (req, res) => {
     try {
         const aspirantes = await Aspirante.find();
-        res.json(aspirantes);
+        const aspirantesConBase64 = aspirantes.map(aspirante => {
+            const fotoBase64 = aspirante.foto.data.toString('base64');
+            const certBase64 = aspirante.cert.data.toString('base64');
+            const compDomBase64 = aspirante.compDom.data.toString('base64');
+            return {
+                ...aspirante.toObject(),
+                foto: fotoBase64,
+                cert: certBase64,
+                compDom: compDomBase64,
+            };
+        });
+        res.json(aspirantesConBase64);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Hubo un error');
+    }
+};
+
+exports.obtenerCiudades = async (req, res) => {
+    try {
+        const ciudades = await Ciudades.find();
+        res.json(ciudades);
     } catch (error) {
         console.log(error);
         res.status(500).send('Hubo un error');
     }
 }
+
+exports.obtenerBachiller = async (req, res) => {
+    try {
+        const bachiller = await Bachiller.find();
+        res.json(bachiller);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+}
+
+exports.obtenerEspecialidad = async (req, res) => {
+    try {
+        const especialidad = await Especialidad.find();
+        res.json(especialidad);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+}
+
+exports.obtenerCarreras = async (req, res) => {
+    try {
+        const carrera = await Carrera.find();
+        res.json(carrera);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Hubo un error');
+    }
+}
+
 
 exports.obtenerAspirante = async (req, res) => {
     try {
