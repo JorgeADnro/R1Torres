@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -7,7 +7,7 @@ import { Ciudad } from 'src/app/models/ciudad';
 import { Bachiller } from 'src/app/models/bachiller';
 import { Carrera } from 'src/app/models/carrera';
 import { Especialidad } from 'src/app/models/especialidad';
-
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AspiranteServices } from 'src/app/services/aspirante.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
+    public sanitizer: DomSanitizer,
     private _aspiranteService: AspiranteServices,
     private aRoute: ActivatedRoute) {
     this.aspiranteForm = this.fb.group({
@@ -61,6 +62,12 @@ export class FormComponent implements OnInit {
     this.obtenerBachiller();
     this.obtenerCarrera();
     this.obtenerEspecialidad();
+  }
+
+  getBufferImageSrc(buffer: ArrayBuffer): SafeUrl {
+    const blob = new Blob([buffer], { type: 'image/*' });
+    const imageUrl = URL.createObjectURL(blob);
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
   agregarAspirante() {
@@ -111,6 +118,11 @@ export class FormComponent implements OnInit {
     console.log(ASPIRANTE);
   }
 
+  getSanitizedImageUrl(base64String: string): SafeUrl {
+    const imageUrl = `data:image/jpeg;base64,${base64String}`;
+    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  }
+
   listAspirante: Aspirante[] = [];
 
 
@@ -121,7 +133,6 @@ export class FormComponent implements OnInit {
     },error => {
       console.log(error);
     })
-    
   }
 
   listCiudad: Ciudad[] = [];

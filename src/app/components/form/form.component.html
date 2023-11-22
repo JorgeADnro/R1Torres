@@ -153,8 +153,13 @@
                     <tbody>
                         <tr *ngFor="let aspirante of listAspirante">
                             <td> {{aspirante.nom}} {{aspirante.apeP}} {{aspirante.apeM}}</td>
-                            <td> {{aspirante.foto}} </td>
-                            <td> {{aspirante.cert}} </td>
+                            <td> 
+                                <img *ngIf="aspirante.foto" [src]="getSanitizedImageUrl(aspirante.foto)" alt="Foto">
+                            </td>
+                            <td> <a *ngIf="aspirante.cert" [href]="'data:application/pdf;base64,' + aspirante.cert" target="_blank" download="certificado.pdf">
+                                Descargar PDF
+                            </a>
+                            </td>
                             <td> {{aspirante.compDom}} </td>
                         </tr>
                     </tbody>
