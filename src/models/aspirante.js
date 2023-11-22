@@ -3,99 +3,99 @@ const mongoose = require("mongoose");
 const aspiranteSchema = mongoose.Schema({
     mat: {
         type: String,
-        required: false
+        required: true
     },
     nom: {
         type: String,
-        required: false
+        required: true
     },
     apeP: {
         type: String,
-        required: false
+        required: true
     },
     apeM: {
         type: String,
-        required: false
+        required: true
     },
     calle: {
         type: String,
-        required: false
+        required: true
     },
     no: {
         type: String,
-        required: false
+        required: true
     },
     col: {
         type: String,
-        required: false
+        required: true
     },
     ciudad: {
         type: String,
-        required: false
+        required: true
     },
     cp: {
         type: Number,
-        required: false
+        required: true
     },
     numTelCa: {
         type: String,
-        required: false
+        required: true
     },
     numTelAsp: {
         type: String,
-        required: false
+        required: true
     },
     numTelMaPa: {
         type: String,
-        required: false
+        required: true
     },
     mail: {
         type: String,
-        required: false
+        required: true
     },
     nomBach: {
         type: String,
-        required: false
+        required: true
     },
     promBach: {
         type: Number,
-        required: false
+        required: true
     },
     espCur: {
         type: String,
-        required: false
+        required: true
     },
     nomMa: {
         type: String,
-        required: false
+        required: true
     },
     apePMa: {
         type: String,
-        required: false
+        required: true
     },
     apeMMa: {
         type: String,
-        required: false
+        required: true
     },
     nomPa: {
         type: String,
-        required: false
+        required: true
     },
     apePPa: {
         type: String,
-        required: false
+        required: true
     },
     apeMPa: {
         type: String,
-        required: false
+        required: true
     },
     fechReg: {
         type: Date,
-        require: false
+        require: true
     },
     carrCur: {
         type: String,
-        required: false
+        required: true
     },
     foto: {
         data: Buffer,

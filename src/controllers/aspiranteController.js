@@ -14,13 +14,16 @@ exports.guardarAspirante = async (req, res) => {
             return res.status(400).send('No se proporcionaron los archivos');
         }
 
-        const { nom, apeP, apeM, calle, no, col, ciudad, cp, numTelCa, numTelAsp, numTelMaPa, nomBach, espCur,
+        const { nom, apeP, apeM, calle, no, col, ciudad, cp, numTelCa, numTelAsp, numTelMaPa, nomBach, promBach, espCur,
             nomMa, apePMa, apeMMa, nomPa, apePPa, apeMPa, carrCur, mail } = req.body;
 
         const mat = generarMatricula(apeP, apeM, nom);
         const foto = req.files['foto'][0];
         const cert = req.files['cert'][0];
         const compDom = req.files['compDom'][0];
+
+        const fechReg = new Date();
+        fechReg.setHours(0, 0, 0, 0);
 
         const aspirante = new Aspirante({
             mat,
@@ -36,6 +39,7 @@ exports.guardarAspirante = async (req, res) => {
             numTelAsp,
             numTelMaPa,
             nomBach,
+            promBach,
             espCur,
             nomMa,
             apePMa,
@@ -45,6 +49,7 @@ exports.guardarAspirante = async (req, res) => {
             apeMPa,
             carrCur,
             mail,
+            fechReg,
             foto: {
                 data: foto.buffer,
                 contentType: foto.mimetype
@@ -64,6 +69,7 @@ exports.guardarAspirante = async (req, res) => {
         notificarEstudiante(mail, mat, nom, apeP, apeM);
 
         res.send(aspirante);
+        
     } catch (error) {
         console.log(error);
         res.status(500).send('Hubo un error');
@@ -159,7 +165,6 @@ exports.obtenerCarreras = async (req, res) => {
         res.status(500).send('Hubo un error');
     }
 }
-
 
 exports.obtenerAspirante = async (req, res) => {
     try {
