@@ -29,9 +29,9 @@
             </div>
             <div class="form-group col-md-6">
                 <label>Ciudad</label>
-                <select formControlName="ciudad" id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                <select  formControlName="ciudad" id="inputState" class="form-control">
+                    <option value="" disabled selected>Selecciona una ciudad</option>
+                    <option *ngFor="let ciudad of listCiudad"> {{ciudad.nom}} </option>
                 </select>
             </div>
             <div class="form-group col-md-6">
@@ -61,8 +61,8 @@
             <div class="form-group col-md-4">
                 <label>Bachillerato de procedencia</label>
                 <select formControlName="nomBach" id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                    <option value="" disabled selected>Selecciona un bachillerato</option>
+                    <option *ngFor="let bach of listBachiller"> {{bach.nom}} </option>
                 </select>
             </div>
         </div>
@@ -74,8 +74,8 @@
             <div class="form-group col-md-4">
                 <label>Especialidad cursada en bachillerato</label>
                 <select formControlName="espCur" id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                    <option value="" disabled selected>Selecciona una especialidad</option>
+                    <option *ngFor="let esp of listEspecialidad"> {{esp.nom}} </option>
                 </select>
             </div>
         </div>
@@ -110,8 +110,8 @@
         <div class="form-group">
             <label>Carrera que desea cursar</label>
             <select formControlName="carrCur" id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+                <option value="" disabled selected>Selecciona una carrera</option>
+                <option *ngFor="let carr of listCarrera"> {{carr.nom}} </option>
             </select>
         </div>
         <div class="form-row">
@@ -144,17 +144,18 @@
                     <thead>
                         <tr>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Edad</th>
-                            <th scope="col">Ocupación</th>
-                            <th scope="col"></th>
+                            <th scope="col">Foto</th>
+                            <th scope="col">Certificado</th>
+                            <th scope="col">Comprobante de domicilio</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let aspirante of listAspirante">
-                            <td> {{aspirante.nom}} </td>
-                            <td> {{aspirante.apeP}} </td>
+                            <td> {{aspirante.nom}} {{aspirante.apeP}} {{aspirante.apeM}}</td>
+                            <td> {{aspirante.foto}} </td>
                             <td> {{aspirante.cert}} </td>
+                            <td> {{aspirante.compDom}} </td>
                         </tr>
                     </tbody>
                 </table>

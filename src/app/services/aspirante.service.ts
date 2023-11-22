@@ -16,6 +16,22 @@ export class AspiranteServices {
     return this.http.get<any[]>('http://localhost:9000/api/asps',requestOptions);
   }
 
+  getCiudades(): Observable<any>{
+    return this.http.get<any[]>('http://localhost:9000/api/asps/ciu',requestOptions);
+  }
+
+  getBachiller(): Observable<any>{
+    return this.http.get<any[]>('http://localhost:9000/api/asps/bach',requestOptions);
+  }
+
+  getCarrera(): Observable<any>{
+    return this.http.get<any[]>('http://localhost:9000/api/asps/carr',requestOptions);
+  }
+
+  getEspecialidad(): Observable<any>{
+    return this.http.get<any[]>('http://localhost:9000/api/asps/esp',requestOptions);
+  }
+
   guardarAspirante(aspirante: Aspirante): Observable<any>{
     return this.http.post('http://localhost:9000/api/asps',aspirante);
   }

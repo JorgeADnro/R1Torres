@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Aspirante } from 'src/app/models/aspirante';
+import { Ciudad } from 'src/app/models/ciudad';
+import { Bachiller } from 'src/app/models/bachiller';
+import { Carrera } from 'src/app/models/carrera';
+import { Especialidad } from 'src/app/models/especialidad';
+
 import { AspiranteServices } from 'src/app/services/aspirante.service';
 
 @Component({
@@ -52,6 +57,10 @@ export class FormComponent implements OnInit {
   }
   ngOnInit(): void {
     this.obtenerAspirantes();
+    this.obtenerCiudades();
+    this.obtenerBachiller();
+    this.obtenerCarrera();
+    this.obtenerEspecialidad();
   }
 
   agregarAspirante() {
@@ -102,8 +111,6 @@ export class FormComponent implements OnInit {
     console.log(ASPIRANTE);
   }
 
-  
-
   listAspirante: Aspirante[] = [];
 
 
@@ -111,6 +118,54 @@ export class FormComponent implements OnInit {
     this._aspiranteService.getAspirantes().subscribe(data => {
       console.log(data);
       this.listAspirante = data;
+    },error => {
+      console.log(error);
+    })
+    
+  }
+
+  listCiudad: Ciudad[] = [];
+
+  obtenerCiudades() {
+    this._aspiranteService.getCiudades().subscribe(data => {
+      console.log(data);
+      this.listCiudad = data;
+    },error => {
+      console.log(error);
+    })
+    
+  }
+
+  listBachiller: Bachiller[] = [];
+
+  obtenerBachiller() {
+    this._aspiranteService.getBachiller().subscribe(data => {
+      console.log(data);
+      this.listBachiller = data;
+    },error => {
+      console.log(error);
+    })
+    
+  }
+
+  listCarrera: Carrera[] = [];
+
+  obtenerCarrera() {
+    this._aspiranteService.getCarrera().subscribe(data => {
+      console.log(data);
+      this.listCarrera = data;
+    },error => {
+      console.log(error);
+    })
+    
+  }
+
+  listEspecialidad: Especialidad[] = [];
+
+  obtenerEspecialidad() {
+    this._aspiranteService.getEspecialidad().subscribe(data => {
+      console.log(data);
+      this.listEspecialidad = data;
     },error => {
       console.log(error);
     })
