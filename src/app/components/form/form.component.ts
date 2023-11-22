@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Aspirante } from 'src/app/models/aspirante';
-import { AspiranteService } from 'src/app/services/aspirante.service';
+import { AspiranteServices } from 'src/app/services/aspirante.service';
 
 @Component({
   selector: 'app-form',
@@ -18,7 +18,7 @@ export class FormComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     private toastr: ToastrService,
-    private _aspiranteService: AspiranteService,
+    private _aspiranteService: AspiranteServices,
     private aRoute: ActivatedRoute) {
     this.aspiranteForm = this.fb.group({
       nom: ['', Validators.required],
@@ -51,9 +51,10 @@ export class FormComponent implements OnInit {
     this.id = this.aRoute.snapshot.paramMap.get('id');
   }
   ngOnInit(): void {
+    this.obtenerAspirantes();
   }
 
-  agregarPaciente() {
+  agregarAspirante() {
     console.log(this.aspiranteForm)
 
     const ASPIRANTE: Aspirante = {
@@ -85,17 +86,9 @@ export class FormComponent implements OnInit {
       cert: this.aspiranteForm.get('cert')?.value,
       compDom: this.aspiranteForm.get('compDom')?.value,
     }
+    
 
-    if (this.id !== null) {
-      // editar paciente
-      this._aspiranteService.editarAspirante(this.id, ASPIRANTE).subscribe(data => {
-        this.toastr.info('El paciente fué actualizado con éxito!', 'Paciente actualizado!');
-        this.router.navigate(['/']);
-      }, error => {
-        console.log(error);
-        this.aspiranteForm.reset();
-      })
-    } else {
+    if (this.id == null) {
       //agregar paciente
       this._aspiranteService.guardarAspirante(ASPIRANTE).subscribe(data => {
         this.toastr.success('El paciente fué agregado con éxito!', 'Paciente agregado!');
@@ -108,4 +101,20 @@ export class FormComponent implements OnInit {
 
     console.log(ASPIRANTE);
   }
+
+  
+
+  listAspirante: Aspirante[] = [];
+
+
+  obtenerAspirantes() {
+    this._aspiranteService.getAspirantes().subscribe(data => {
+      console.log(data);
+      this.listAspirante = data;
+    },error => {
+      console.log(error);
+    })
+    
+  }
+  
 }

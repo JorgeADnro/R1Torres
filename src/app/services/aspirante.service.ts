@@ -2,32 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Aspirante } from '../models/aspirante';
+const requestOptions = {
+    withCredentials: true,
+  };
 
 @Injectable({
   providedIn: 'root'
 })
-export class AspiranteService {
-  _url = 'localhost:9000/api/asps/'
+export class AspiranteServices {
   constructor(private http:HttpClient) {  }
 
-  getAspirante(): Observable<any>{
-    return this.http.get(this._url);
-  }
-
-  eliminarAspirante(id: string): Observable<any> {
-    return this.http.delete(this._url + id);
+  getAspirantes(): Observable<any>{
+    return this.http.get<any[]>('http://localhost:9000/api/asps',requestOptions);
   }
 
   guardarAspirante(aspirante: Aspirante): Observable<any>{
-    return this.http.post(this._url,aspirante);
+    return this.http.post('http://localhost:9000/api/asps',aspirante);
   }
 
   obtenerAspirante(id: string): Observable<any>{
-    return this.http.get(this._url + id);
-  }
-
-  editarAspirante(id: string, aspirante: Aspirante): Observable<any>{
-    return this.http.put(this._url + id, aspirante);
+    return this.http.get('http://localhost:9000/api/asps' + id);
   }
 
 }

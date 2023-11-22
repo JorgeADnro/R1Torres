@@ -1,5 +1,5 @@
 <div class="form-container">
-    <form [formGroup]="aspiranteForm" (ngSubmit)="agregarPaciente()">
+    <form [formGroup]="aspiranteForm" (ngSubmit)="agregarAspirante()">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label>Nombre</label>
@@ -130,4 +130,35 @@
         </div>
         <button type="submit" class="btn btn-primary">Sign in</button>
     </form>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="topnav">
+                </div>
+                <span class="titulo">LISTADO DE ASPIRANTES</span>
+                <button routerLink="/crear-usuario" class="btn btn-success float-end">NUEVO</button>
+                <table *ngIf="listAspirante.length > 0" class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Edad</th>
+                            <th scope="col">Ocupación</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let aspirante of listAspirante">
+                            <td> {{aspirante.nom}} </td>
+                            <td> {{aspirante.apeP}} </td>
+                            <td> {{aspirante.cert}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

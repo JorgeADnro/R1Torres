@@ -24,14 +24,14 @@ export class Aspirante{
     apeMPa: String;
     fechReg: Date;
     carrCur: String;
-    foto: FileList | null;
-    cert: FileList | null;
-    compDom: FileList | null;
+    foto?: String;
+    cert?: String;
+    compDom?: String;
 
     constructor(mat:String,nom: String,apeP: String,apeM: String,calle: String,no: String,col: String, 
         ciudad: String,cp: Number,numTelCa: String,numTelAsp: String,numTelMaPa: String,mail: String,
         nomBach: String,promBach: Number,espCur: String,nomMa: String,apePMa: String,apeMMa: String,
-        nomPa: String,apePPa: String,apeMPa: String,fechReg: Date,carrCur: String, foto: FileList | null,cert: FileList | null,compDom: FileList | null){
+        nomPa: String,apePPa: String,apeMPa: String,fechReg: Date,carrCur: String, foto: String,cert: String,compDom: String){
             this.nom = nom;
             this.mat = mat;
             this.apeP = apeP;
