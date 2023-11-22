@@ -72,7 +72,11 @@ exports.guardarAspirante = async (req, res) => {
 
 
 function quitarAcentos(texto) {
-    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if(texto && texto.normalize){
+        return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    } else {
+    console.error("La cadena es nula o no tiene el método 'normalize'.");
+  }
 }
 
 function generarMatricula(apeP, apeM, nom) {
