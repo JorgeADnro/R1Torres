@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require("mongoose");
 require("dotenv").config();
-const aspiranteRouters = require('./src/routes/aspiranteRoute');
+const biblioRouters = require('./src/routes/biblioRoute');
 const app = express();
 const port = process.env.PORT || 9000;
 const cors = require("cors");
@@ -17,7 +17,7 @@ console.log('Before CORS middleware');
 app.use(cors(corsOptions));
 console.log('After CORS middleware');
 app.use(express.json());
-app.use('/api/', aspiranteRouters);
+app.use('/api/', biblioRouters);
 
 // mongodb connection
 mongoose

@@ -1,0 +1,39 @@
+const mongoose = require("mongoose");
+
+const libroSchema = mongoose.Schema({
+    titulo: {
+        type: String,
+        required: false
+    },
+    autor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Autor',
+        required: true
+    },
+    editorial: {
+        type: String,
+        required: false
+    },
+    fechpubl: {
+        type: String,
+        required: false
+    },
+    gen: {
+        type: String,
+        required: false
+    },
+    sinop: {
+        type: String,
+        required: false
+    },
+    numpag: {
+        type: String,
+        required: false
+    },
+    foto: {
+        data: Buffer,
+        contentType: String
+    }
+});
+
+module.exports = mongoose.model('Libro', libroSchema);
