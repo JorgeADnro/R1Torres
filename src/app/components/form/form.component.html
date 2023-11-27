@@ -1,243 +1,59 @@
-<div class="form-container">
-    <form [formGroup]="aspiranteForm" (ngSubmit)="sendFiles()" enctype="multipart/form-data">
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Nombre</label>
-                <input formControlName="nom" type="text" class="form-control" placeholder="Nombre">
-                <div class="text-danger" *ngIf="aspiranteForm.get('nom')?.hasError('required') && aspiranteForm.get('nom')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Apellido Paterno</label>
-                <input formControlName="apeP" type="text" class="form-control" placeholder="Apellido Paterno">
-                <div class="text-danger" *ngIf="aspiranteForm.get('apeP')?.hasError('required') && aspiranteForm.get('apeP')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Apellido Materno</label>
-                <input formControlName="apeM" type="text" class="form-control" placeholder="Apellido Materno">
-                <div class="text-danger" *ngIf="aspiranteForm.get('apeM')?.hasError('required') && aspiranteForm.get('apeM')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Calle</label>
-            <input formControlName="calle" type="text" class="form-control">
-            <div class="text-danger" *ngIf="aspiranteForm.get('calle')?.hasError('required') && aspiranteForm.get('calle')?.touched">
-                <span>Este campo es <strong>obligatorio</strong></span> 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Numero</label>
-                <input formControlName="no" type="text" class="form-control" placeholder="118-A">
-                <div class="text-danger" *ngIf="aspiranteForm.get('no')?.hasError('required') && aspiranteForm.get('no')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Colonia</label>
-                <input formControlName="col" type="text" class="form-control" placeholder="">
-                <div class="text-danger" *ngIf="aspiranteForm.get('col')?.hasError('required') && aspiranteForm.get('col')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Ciudad</label>
-                <select  formControlName="ciudad" id="inputState" class="form-control">
-                    <option value="" disabled selected>Selecciona una ciudad</option>
-                    <option *ngFor="let ciudad of listCiudad"> {{ciudad.nom}} </option>
-                </select>
-                <div class="text-danger" *ngIf="aspiranteForm.get('ciudad')?.hasError('required') && aspiranteForm.get('ciudad')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Código Postal</label>
-                <input formControlName="cp" type="number" class="form-control" placeholder="37800">
-                <div class="text-danger" *ngIf="aspiranteForm.get('cp')?.hasError('required') && aspiranteForm.get('cp')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Número de teléfono de casa</label>
-                <input formControlName="numTelCa" type="text" class="form-control">
-                <div class="text-danger" *ngIf="aspiranteForm.get('numTelCa')?.hasError('required') && aspiranteForm.get('numTelCa')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Número de teléfono</label>
-                <input formControlName="numTelAsp" type="text" class="form-control">
-                <div class="text-danger" *ngIf="aspiranteForm.get('numTelAsp')?.hasError('required') && aspiranteForm.get('numTelAsp')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-2">
-                <label>Otro número de teléfono</label>
-                <input formControlName="numTelMaPa" type="text" class="form-control" id="inputZip">
-                <div class="text-danger" *ngIf="aspiranteForm.get('numTelMaPa')?.hasError('required') && aspiranteForm.get('numTelMaPa')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Email</label>
-                <input formControlName="mail" type="email" class="form-control">
-                <div class="text-danger" *ngIf="aspiranteForm.get('mail')?.hasError('required') && aspiranteForm.get('mail')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Bachillerato de procedencia</label>
-                <select formControlName="nomBach" id="inputState" class="form-control">
-                    <option value="" disabled selected>Selecciona un bachillerato</option>
-                    <option *ngFor="let bach of listBachiller"> {{bach.nom}} </option>
-                </select>
-                <div class="text-danger" *ngIf="aspiranteForm.get('nomBach')?.hasError('required') && aspiranteForm.get('nomBach')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Promedio de bachillerato</label>
-                <input formControlName="promBach" type="number" class="form-control">
-                <div class="text-danger" *ngIf="aspiranteForm.get('promBach')?.hasError('required') && aspiranteForm.get('promBach')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Especialidad cursada en bachillerato</label>
-                <select formControlName="espCur" id="inputState" class="form-control">
-                    <option value="" disabled selected>Selecciona una especialidad</option>
-                    <option *ngFor="let esp of listEspecialidad"> {{esp.nom}} </option>
-                </select>
-                <div class="text-danger" *ngIf="aspiranteForm.get('espCur')?.hasError('required') && aspiranteForm.get('espCur')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Nombre de la madre</label>
-                <input formControlName="nomMa" type="text" class="form-control" placeholder="Nombre">
-                <div class="text-danger" *ngIf="aspiranteForm.get('nomMa')?.hasError('required') && aspiranteForm.get('nomMa')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-
-            </div>
-            <div class="form-group col-md-6">
-                <label>Apellido paterno de la madre</label>
-                <input formControlName="apePMa" type="text" class="form-control" placeholder="Apellido Paterno">
-                <div class="text-danger" *ngIf="aspiranteForm.get('apePMa')?.hasError('required') && aspiranteForm.get('apePMa')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Apellido materno de la madre</label>
-                <input formControlName="apeMMa" type="text" class="form-control" placeholder="Apellido Materno">
-                <div class="text-danger" *ngIf="aspiranteForm.get('apeMMa')?.hasError('required') && aspiranteForm.get('apeMMa')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label>Nombre del padre</label>
-                <input formControlName="nomPa" type="text" class="form-control" placeholder="Nombre">
-                <div class="text-danger" *ngIf="aspiranteForm.get('nomPa')?.hasError('required') && aspiranteForm.get('nomPa')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Apellido paterno del padre</label>
-                <input formControlName="apePPa" type="text" class="form-control" placeholder="Apellido Paterno">
-                <div class="text-danger" *ngIf="aspiranteForm.get('apePPa')?.hasError('required') && aspiranteForm.get('apePPa')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Apellido Materno del padre</label>
-                <input formControlName="apeMPa" type="text" class="form-control" placeholder="Apellido Materno">
-                <div class="text-danger" *ngIf="aspiranteForm.get('apeMPa')?.hasError('required') && aspiranteForm.get('apeMPa')?.touched">
-                    <span>Este campo es <strong>obligatorio</strong></span> 
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Carrera que desea cursar</label>
-            <select formControlName="carrCur" id="inputState" class="form-control">
-                <option value="" disabled selected>Selecciona una carrera</option>
-                <option *ngFor="let carr of listCarrera"> {{carr.nom}} </option>
-            </select>
-            <div class="text-danger" *ngIf="aspiranteForm.get('carrCur')?.hasError('required') && aspiranteForm.get('carrCur')?.touched">
-                <span>Este campo es <strong>obligatorio</strong></span> 
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="mb-3">
-                <label for="foto" class="form-label">Foto del aspirante</label>
-                <input class="form-control" type="file" id="foto" (change)="getFile($event, 'foto')">
-              </div>
-              <div class="mb-3">
-                <label for="cert" class="form-label">Certificado de bachillerato</label>
-                <input class="form-control" type="file" id="cert" (change)="getFile($event, 'cert')">
-              </div>
-              <div class="mb-3">
-                <label for="compDom" class="form-label">Comprobante de domicilio</label>
-                <input class="form-control" type="file" id="compDom" (change)="getFile($event, 'compDom')">              </div>
-          </div>
-          <button type="submit" class="btn btn-primary btn-lg float-end">
-            Registrar estudiante
-        </button>    
-    </form>
-</div>
-
-<div class="container mt-5">
+<div class="conteiner mt-5">
     <div class="row">
-        <div class="card">
-            <div class="card-body text-center">
-                <div class="topnav">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <span class="titulo">{{titulo | uppercase}}</span>
+                    <form class="mt-3" [formGroup]="libroForm" (ngSubmit)="sendFiles()">
+                        <div class="mb-3">
+                            <input formControlName="titulo" type="text" class="form-control form-control-lg" placeholder="Titulo">
+                            <div class="text-danger" *ngIf="libroForm.get('titulo')?.hasError('required') && libroForm.get('titulo')?.touched">
+                                <span>Este campo es <strong>obligatorio</strong></span> 
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input formControlName="editorial" type="text" class="form-control form-control-lg" placeholder="Editorial">
+                            <div class="text-danger" *ngIf="libroForm.get('editorial')?.hasError('required') && libroForm.get('editorial')?.touched">
+                                <span>Este campo es <strong>obligatorio</strong></span> 
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input formControlName="fechpubl" type="number" class="form-control form-control-lg" placeholder="Fecha de publicación">
+                            <div class="text-danger" *ngIf="libroForm.get('fechpubl')?.hasError('required') && libroForm.get('fechpubl')?.touched">
+                                <span>Este campo es <strong>obligatorio</strong></span> 
+                            </div>
+                        </div>                        
+                        <div class="mb-3">
+                            <input formControlName="gen" type="text" class="form-control form-control-lg" placeholder="Género">
+                            <div class="text-danger" *ngIf="libroForm.get('gen')?.hasError('required') && libroForm.get('gen')?.touched">
+                                <span>Este campo es <strong>obligatorio</strong></span> 
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input formControlName="sinop" type="text" class="form-control form-control-lg" placeholder="Sinópsis">
+                            <div class="text-danger" *ngIf="libroForm.get('sinop')?.hasError('required') && libroForm.get('sinop')?.touched">
+                                <span>Este campo es <strong>obligatorio</strong></span> 
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input formControlName="numpag" type="number" class="form-control form-control-lg" placeholder="Número de páginas">
+                            <div class="text-danger" *ngIf="libroForm.get('numpag')?.hasError('required') && libroForm.get('numpag')?.touched">
+                                <span>Este campo es <strong>obligatorio</strong></span> 
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="foto" class="form-label">Foto del aspirante</label>
+                            <input class="form-control" type="file" id="foto" (change)="getFile($event, 'foto')">
+                          </div>
+                        <div class="text-danger" *ngIf="libroForm.get('chronologicalDisease')?.hasError('required') && libroForm.get('chronologicalDisease')?.touched">
+                            <span>Este campo es <strong>obligatorio</strong></span> 
+                        </div>
+                        <div class="mb-3">
+                            <button routerLink="/" class="btn btn-secondary btn-lg float-start">VOLVER</button>
+                            <button type="submit" class="btn btn-primary btn-lg float-end">GUARDAR</button>
+                        </div>
+                    </form>
                 </div>
-                <span class="titulo">LISTADO DE ESTUDIANTES</span>
-                <table *ngIf="listAspirante.length > 0" class="table table-striped mt-3">
-                    <thead>
-                        <tr>
-                            <th scope="col">Matrícula</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Foto</th>
-                            <th scope="col">Certificado</th>
-                            <th scope="col">Comprobante de domicilio</th>
-                            <th scope="col">Fecha de registro</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let aspirante of listAspirante">
-                            <td> {{aspirante.mat}}</td>
-                            <td> {{aspirante.nom}} {{aspirante.apeP}} {{aspirante.apeM}}</td>
-                            <td> 
-                                <img style="width: 100px; height: 100;" *ngIf="aspirante.foto" [src]="getSanitizedImageUrl(aspirante.foto, 'jpeg')" alt="Foto">
-                            </td>
-                            <td> <a *ngIf="aspirante.cert" [href]="'data:application/pdf;base64,' + aspirante.cert" target="_blank" download="certificado.pdf">
-                                Descargar PDF
-                            </a>
-                            </td>
-                            <td>  
-                                <a *ngIf="aspirante.compDom" [href]="'data:application/pdf;base64,' + aspirante.compDom" target="_blank" download="comprobanteDomicilio.pdf">
-                                    Descargar PDF
-                                </a>
-                            </td>
-                            <td> {{aspirante.fechReg | date:'dd-MM-yyyy'}}</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
